@@ -1,0 +1,22 @@
+{
+  "name": "catbot-rewritten",
+  "version": "0.0.0",
+  "description": "Catbot rewrite",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/goddycodes/catbot-rewrite.git"
+  },
+  "author": "goddy#8210",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/goddycodes/catbot-rewrite/issues"
+  },
+  "homepage": "https://github.com/goddycodes/catbot-rewrite#readme",
+  "dependencies": {
+    "discord.js": "^11.2.1"
+  }
+}
