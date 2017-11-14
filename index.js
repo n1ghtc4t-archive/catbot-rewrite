@@ -70,4 +70,4 @@ function clean(text) {
       return text;
 }
 
-client.login('your bot\'s token');
+client.login(process.env.BOT_TOKEN);
