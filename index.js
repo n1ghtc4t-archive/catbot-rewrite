@@ -18,7 +18,7 @@ client.on('message', msg => {
 	}
     
     if(msg.content.startsWith(prefix + 'eval')) {
-    if (msg.author.id !== "your userID") return
+    if (msg.author.id !== "260246864979296256") return
     let evall = msg.content.split(' ')[0];
     let evalstuff = msg.content.split(" ").slice(1).join(" ")
     try {
@@ -49,6 +49,47 @@ client.on('message', msg => {
    }
  }
 
+ if (msg.content.startsWith(prefix + 'userinfo')) {
+ 	return msg.channel.send("Sorry, you cannot use this command")
+ }
+ 	/* 
+ 	let userMention = msg.mentions.users.first()
+ 	if (!userMention) {
+ 		const embed = new Discord.RichEmbed()
+ 		.setTitle(`Information about ${msg.author.username}`, msg.author.avatarURL)
+ 		.addField(`Full username`, `${msg.author.tag}`)
+ 		.addField(`Nickname`, `${msg.author.displayName}`)
+ 		.addField(`Status`, `${msg.author.presence.status}`)
+ 		.addField(`Roles`, `WIP`)
+ 		.addField(`Joined guild`, `${msg.author.joinedAt.toString().substr(0, 15)}`)
+ 		.addField(`Joined Discord`, `${msg.author.createdAt.toString().substr(0, 15)}`)
+ 		.addField(`Is a bot`, `${msg.author.bot}`)
+ 		.addField(`User ID`, `${msg.author.id}`)
+ 	}   
+ 	 	const embed = new Discord.RichEmbed()
+ 		.setTitle(`Information about ${userMention.username}`, userMention.avatarURL)
+ 		.addField(`Full username`, `${userMention.tag}`)
+ 		.addField(`Nickname`, `${userMention.displayName}`)
+ 		.addField(`Status`, `${userMention.presence.status}`)
+ 		.addField(`Roles`, `WIP`)
+ 		.addField(`Joined guild`, `${userMention.joinedAt.toString().substr(0, 15)}`)
+ 		.addField(`Joined Discord`, `${userMention.createdAt.toString().substr(0, 15)}`)
+ 		.addField(`Is a bot`, `${userMention.bot}`)
+ 		.addField(`User ID`, `${userMention.id}`) 
+ 		*/
+
+ 	if (msg.content.startsWith(prefix + 'say')) {
+ 		let args = msg.content.split(' ').slice(1).join(' ')
+ 		if (msg.author.id !== "260246864979296256") {
+ 			return msg.reply("no")
+ 		}
+ 		if (!args) {
+ 			return msg.reply("well ok then")
+ 		}
+ 		msg.delete()
+ 		msg.channel.send(`${args}`)
+ 	}
+    
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
@@ -56,8 +97,8 @@ client.on('message', msg => {
 		.addField(`Fun`, `\`ping\``)
 		.addField(`Util`, `Soon`)
 		.addField(`Mod`, `Soon`)
-		.addField(`Dev`, `\`eval\``)
-		.addField(`Work in Progress`, `No commands here (yet)`)
+		.addField(`Dev`, `\`eval\`, \`say\``)
+		.addField(`Work in Progress`, `\`userinfo\``)
 
 		msg.author.send({embed});
 	}
