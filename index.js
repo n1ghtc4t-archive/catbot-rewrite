@@ -89,13 +89,27 @@ client.on('message', msg => {
  		msg.delete()
  		msg.channel.send(`${args}`)
  	}
+	
+	if (msg.content.startsWith(prefix + 'serverinfo')) {
+		const embed = new Discord.RichEmbed()
+		.setTitle(`Server name: ${msg.guild.name} (${msg.guild.id})`)
+		.addField(`Owner`, `${msg.guild.owner}`)
+		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "text").size} voice channels)`)
+		.addField(`Roles`, `${msg.guild.roles.size}`)
+		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`)
+		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`)
+		.addField(`Region`, `${msg.guild.region}`)
+		.addField(`Verification Level`, `${msg.guild.verificationLevel}`)
+		
+		msg.channel.send({embed})
+	}
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
 		.addField(`Fun`, `\`ping\``)
-		.addField(`Util`, `Soon`)
+		.addField(`Util`, `\`serverinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
 		.addField(`Work in Progress`, `\`userinfo\``)
