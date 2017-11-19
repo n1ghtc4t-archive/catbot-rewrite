@@ -95,12 +95,12 @@ client.on('message', msg => {
 		.setTitle(`Information about ${msg.guild.name}`)
 		.addField(`Owner`, `${msg.guild.owner}`, true)
 		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "voice").size} voice channels)`, true)
-		.addField(`Roles`, `${msg.guild.roles.size}`)
-		.addField(`Guild ID`, `${msg.guild.id}`)
+		.addField(`Roles`, `${msg.guild.roles.size}`, true)
+		.addField(`Guild ID`, `${msg.guild.id}`, true)
 		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`, true)
 		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`, true)
-		.addField(`Region`, `${msg.guild.region}`)
-		.addField(`Verification Level`, `${msg.guild.verificationLevel}`)
+		.addField(`Region`, `${msg.guild.region}`, true)
+		.addField(`Verification Level`, `${msg.guild.verificationLevel}`, true)
 		
 		msg.channel.send({embed})
 	}
