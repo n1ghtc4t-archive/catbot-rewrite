@@ -97,10 +97,10 @@ client.on('message', msg => {
 		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "voice").size} voice channels)`)
 		.addField(`Roles`, `${msg.guild.roles.size}`)
 		.addField(`Guild ID`, `${msg.guild.id}`)
-		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`, inline)
-		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`, inline)
-		.addField(`Region`, `${msg.guild.region}`, inline)
-		.addField(`Verification Level`, `${msg.guild.verificationLevel}`, inline)
+		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`, true)
+		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`, true)
+		.addField(`Region`, `${msg.guild.region}`, true)
+		.addField(`Verification Level`, `${msg.guild.verificationLevel}`, true)
 		
 		msg.channel.send({embed})
 	}
