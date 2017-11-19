@@ -94,7 +94,7 @@ client.on('message', msg => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
 		.addField(`Owner`, `${msg.guild.owner}`, true)
-		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "voice").size} voice channels)`, true)
+		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} (${msg.guild.channels.filter(c => c.type === "voice").size} voice)`, true)
 		.addField(`Roles`, `${msg.guild.roles.size}`, true)
 		.addField(`Guild ID`, `${msg.guild.id}`, true)
 		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`, true)
