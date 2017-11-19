@@ -92,14 +92,15 @@ client.on('message', msg => {
 	
 	if (msg.content.startsWith(prefix + 'serverinfo')) {
 		const embed = new Discord.RichEmbed()
-		.setTitle(`Server name: ${msg.guild.name} (${msg.guild.id})`)
+		.setTitle(`Information about ${msg.guild.name}`)
 		.addField(`Owner`, `${msg.guild.owner}`)
-		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "text").size} voice channels)`)
+		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} text channels (${msg.guild.channels.filter(c => c.type === "voice").size} voice channels)`)
 		.addField(`Roles`, `${msg.guild.roles.size}`)
-		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`)
-		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`)
-		.addField(`Region`, `${msg.guild.region}`)
-		.addField(`Verification Level`, `${msg.guild.verificationLevel}`)
+		.addField(`Guild ID`, `${msg.guild.id}`)
+		.addField(`Members`, `${msg.guild.members.filter(m => !m.user.bot).size} members (${msg.guild.members.filter(m => m.user.bot).size} bots)`, inline)
+		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`, inline)
+		.addField(`Region`, `${msg.guild.region}`, inline)
+		.addField(`Verification Level`, `${msg.guild.verificationLevel}`, inline)
 		
 		msg.channel.send({embed})
 	}
