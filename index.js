@@ -104,12 +104,21 @@ client.on('message', msg => {
 		
 		msg.channel.send({embed})
 	}
+	
+	if (msg.content.startsWith(prefix + 'catify')) {
+		let args = msg.content.split(" ").slice(1)
+		if (!args) {
+			return msg.reply("u noob")
+		}
+		msg.channel.send(args.join('🐱'))
+	}
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
-		.addField(`Fun`, `\`ping\``)
+		.addField(`General`, `\`ping\``)
+		.addField(`Fun`, `\`catify\``)
 		.addField(`Util`, `\`serverinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
