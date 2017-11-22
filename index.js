@@ -93,6 +93,7 @@ client.on('message', msg => {
 	if (msg.content.startsWith(prefix + 'serverinfo')) {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
+		.setColor("RANDOM")
 		.addField(`Owner`, `${msg.guild.owner}`)
 		.addField(`Channels`, `${msg.guild.channels.filter(c => c.type === "text").size} (${msg.guild.channels.filter(c => c.type === "voice").size} voice)`)
 		.addField(`Roles`, `${msg.guild.roles.size}`)
