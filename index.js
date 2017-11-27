@@ -113,12 +113,16 @@ client.on('message', msg => {
 		}
 		msg.channel.send(args.join('🐱'))
 	}
+	
+	if (msg.content.startsWith(prefix + 'invite')) {
+		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot")
+	}
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
-		.addField(`General`, `\`ping\``)
+		.addField(`General`, `\`ping\`, \`invite\``)
 		.addField(`Fun`, `\`catify\``)
 		.addField(`Util`, `\`serverinfo\``)
 		.addField(`Mod`, `Soon`)
