@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-  client.user.setGame(`c:help for help!`, 'https://www.twitch.tv/goddycodes')
+  client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes')
 });
 
 let prefix = "c:"
