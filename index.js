@@ -111,7 +111,7 @@ client.on('message', msg => {
 		if (!args) {
 			return msg.reply("This command requires arguments.")
 		}
-		msg.channel.send(args.join('🐱'))
+		msg.channel.send("🐱" + args.join('🐱') + "🐱")
 	}
 	
 	if (msg.content.startsWith(prefix + 'invite')) {
