@@ -84,7 +84,7 @@ client.on('message', msg => {
  			return msg.reply("no")
  		}
  		if (!args) {
- 			return msg.reply("well ok then")
+ 			return msg.reply("Args pls")
  		}
  		msg.delete()
  		msg.channel.send(`${args}`)
@@ -109,7 +109,7 @@ client.on('message', msg => {
 	if (msg.content.startsWith(prefix + 'catify')) {
 		let args = msg.content.split(" ").slice(1)
 		if (!args) {
-			return msg.reply("u noob")
+			return msg.reply("This command requires arguments.")
 		}
 		msg.channel.send(args.join('🐱'))
 	}
