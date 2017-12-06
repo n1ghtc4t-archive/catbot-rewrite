@@ -1,2 +1,6 @@
 # catbot-rewrite
-Catbot Rewritten (v2)
+This is the Git repository for Catbot Rewrite (official).
+
+
+
+
