@@ -127,7 +127,7 @@ client.on('message', msg => {
 		.addField(`Util`, `\`serverinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
-		.addField(`Work in Progress`, `\`userinfo\``)
+		.addField(`Work In Progress`, `\`userinfo\``)
 
 		msg.author.send({embed});
 	}
