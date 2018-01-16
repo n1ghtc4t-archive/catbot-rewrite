@@ -3,10 +3,10 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-  client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
+  client.user.setGame('d:help for help!', 'https://www.twitch.tv/goddycodes');
 });
 
-let prefix = "c:"
+let prefix = "d:"
 
 client.on('message', msg => {
 	if (msg.author.bot) return;
@@ -18,7 +18,7 @@ client.on('message', msg => {
 	}
     
     if(msg.content.startsWith(prefix + 'eval')) {
-    if (msg.author.id !== "260246864979296256") return
+    if (msg.author.id !== "260246864979296256") return;
     let evall = msg.content.split(' ')[0];
     let evalstuff = msg.content.split(" ").slice(1).join(" ")
     try {
@@ -106,12 +106,12 @@ client.on('message', msg => {
 		msg.channel.send({embed})
 	}
 	
-	if (msg.content.startsWith(prefix + 'catify')) {
+	if (msg.content.startsWith(prefix + 'dogify')) {
 		let args = msg.content.split(" ").slice(1)
 		if (!args) {
 			return msg.reply("This command requires arguments.")
 		}
-		msg.channel.send("🐱" + args.join('🐱') + "🐱")
+		msg.channel.send("🐶" + args.join('🐶') + "🐶")
 	}
 	
 	if (msg.content.startsWith(prefix + 'invite')) {
@@ -120,10 +120,10 @@ client.on('message', msg => {
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
-		.setTitle(`Catbot Help`)
+		.setTitle(`Dogbot Help`)
 		.setColor(0xc6c6c6)
 		.addField(`General`, `\`ping\`, \`invite\``)
-		.addField(`Fun`, `\`catify\``)
+		.addField(`Fun`, `\`dogify\``)
 		.addField(`Util`, `\`serverinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
