@@ -120,7 +120,7 @@ client.on('message', msg => {
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
-		.setTitle(`Cathelp Help`)
+		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
 		.addField(`General`, `\`ping\`, \`invite\``)
 		.addField(`Fun`, `\`catify\``)
