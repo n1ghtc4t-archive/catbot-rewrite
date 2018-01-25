@@ -117,6 +117,10 @@ client.on('message', msg => {
 	if (msg.content.startsWith(prefix + 'invite')) {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot")
 	}
+	
+	if(msg.content.startsWith(prefix + "sorry")) {
+	msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png")	
+	}
     
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
