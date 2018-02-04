@@ -129,7 +129,7 @@ client.on('message', msg => {
 		if(!userToRep) {
 			return msg.reply("Please provide a user mention!");
 		} else {
-			fs.appendFile('rep.json', `{ "${userToRep.tag}":"${startingRep + 1}" }`, function(error) {
+			fs.appendFile('rep.json', `{ "${userToRep.tag}":"${startingRep + 1}" }`, function(err) {
 				if (err) throw err;
 				console.log("Updated file!");
 			});
