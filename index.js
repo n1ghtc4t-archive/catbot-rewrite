@@ -120,7 +120,19 @@ client.on('message', msg => {
 	}
 	
 	if(msg.content.startsWith(prefix + "sorry")) {
-	msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png")	
+		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png")	
+	}
+	
+	if(msg.content.startsWith(prefix + 'rep')) {
+		let userToRep = msg.mentions.members.first();
+		let startingRep = 0;
+		if(!userToRep) {
+			return msg.reply("Please provide a user mention!");
+		} else {
+			fs.appendFile('rep.json', `{ "${userToRep.tag}":"${startingRep + 1}" }`, function(error) {
+				if (err) throw err;
+				console.log("Updated file!");
+			});
 	}
     
 	if (msg.content.startsWith(prefix + 'help')) {
