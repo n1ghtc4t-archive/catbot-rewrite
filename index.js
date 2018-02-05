@@ -126,7 +126,7 @@ client.on('message', msg => {
 	}
 	
 	if (msg.content.startsWith(prefix + 'rep')) {
-		let userToRep = msg.mentions.members.first();
+		let userToRep = msg.mentions.members.first().id;
 		let startingRep = 0;
 		//Check if there was actually a mention
         if(!userToRep) {
@@ -159,7 +159,7 @@ client.on('message', msg => {
 	}
 //Temp command to check someone's rep. Need a profile or something.
 	if (msg.content.startsWith(prefix + 'viewrep')) {
-		userToRep = msg.mentions.members.first();
+		userToRep = msg.mentions.members.first().id;
 		if(!userToRep) {return msg.reply("USAGE: "+prefix+"viewrep "+" <user mention>")};
 		fs.readFile(USER_DATA_FILE, 'utf8', (err, data) => {
 			if (err) {
