@@ -187,7 +187,7 @@ client.on('message', msg => {
 
 		msg.author.send({embed});
 	}
-	}
+
 });
 
 function clean(text) {
