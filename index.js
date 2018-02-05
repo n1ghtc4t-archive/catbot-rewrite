@@ -154,6 +154,7 @@ client.on('message', msg => {
 			fs.writeFile(USER_DATA_FILE, JSON.stringify(usersdata), err => {
 				if (err) { console.error(err) };
 			});
+			msg.reply("You have given 1 reputation point to the user!")
 		});
 	}
 //Temp command to check someone's rep. Need a profile or something.
@@ -169,7 +170,7 @@ client.on('message', msg => {
 			usersdata = JSON.parse(data); //Grab the userdata
 			userdata = usersdata[userToRep] ? usersdata[userToRep] : {}; // Grab the user we care about
 			rep = userdata["rep"] ? userdata["rep"] : 0; // Get their rep
-			msg.reply("User \""+msg.member.displayName+"\" has "+String(rep)+" rep.")
+			msg.reply("This person has "+String(rep)+" rep.")
 		});
 
 	}
