@@ -49,6 +49,13 @@ client.on('message', msg => {
 			msg.channel.send({embed});
 		}
 	}
+	
+	if (msg.content.startsWith(prefix + 'cat')) {
+  const {get} = require("snekfetch");
+      get("https://random.cat/meow").then(res => {
+      msg.channel.send(res.body.file)
+      })
+  };
 
 	if (msg.content.startsWith(prefix + 'userinfo')) {
 		return msg.channel.send("Sorry, you cannot use this command");
@@ -178,7 +185,7 @@ client.on('message', msg => {
 		 .setTitle(`Catbot Help`)
 		 .setColor(0xc6c6c6)
 		 .addField(`General`, `\`ping\`, \`invite\``)
-		 .addField(`Fun`, `\`catify\``)
+		 .addField(`Fun`, `\`catify\` \`cat\``)
 		 .addField(`Util`, `\`serverinfo\``)
 		 .addField(`Mod`, `Soon`)
 		 .addField(`Dev`, `\`eval\`, \`say\``)
