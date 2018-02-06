@@ -146,7 +146,7 @@ client.on('message', msg => {
 		UserData[userid] = users_data;
 		UserData[msg.author.id] = author_data
 		writeUserData();
-		msg.reply("You have given 1 reputation point to the user! They now have "+usersdata["rep"].toString()+" rep.");
+		msg.reply("You have given 1 reputation point to the user! They now have "+users_data["rep"].toString()+" rep.");
 
 	}
 
