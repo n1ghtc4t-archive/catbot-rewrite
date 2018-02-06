@@ -125,72 +125,31 @@ client.on('message', msg => {
 	if(msg.content.startsWith(prefix + "sorry")) {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
-/*	
-	if (msg.content.startsWith(prefix + 'rep')) {
-		let userToRep = msg.mentions.members.first().id;
-		let startingRep = 0;
-		//Check if there was actually a mention
-		if(!userToRep) {
-			return msg.reply("Please provide a user mention!");
-		}
-		//Read the userdata file (should really scan.. but then should really use a db engine)
-		fs.readFile(USER_DATA_FILE, 'utf8', (err, data) => {
-			if (err) {
-				if (err.code == "ENOENT") {
-					//Replace this with code to initialise file later
-					console.log("User data file does not exist. Please initialise with {}");
-					return;
-				} else {
-					console.error(err);
-					return;
-				}
-			}
-			usersdata = JSON.parse(data); //Grab the userdata
-			userdata = usersdata[userToRep] ? usersdata[userToRep] : {}; // Grab the user we care about
-			currentRep = userdata["rep"] ? userdata["rep"] : startingRep; // Get their rep
-			newRep = currentRep + 1; //New rep
-			userdata["rep"] = newRep; //Set their rep
-			usersdata[userToRep] = userdata; //Write in the userdata to the dictionary
-			//Write the user data to the file
-			fs.writeFile(USER_DATA_FILE, JSON.stringify(usersdata), err => {
-				if (err) { console.error(err) };
-			});
-			msg.reply("You have given 1 reputation point to the user!");
-		});
-	} */
+
 	if (msg.content.startsWith(prefix + 'rep')) {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!") ;
 		userid = user.id;
 		if (userid == msg.author.id) return msg.reply("You can't give reputation to yourself!");
+		author_data = UserData[msg.author.id] ? UserData[msg.author.id] : {};
 
-		usersdata = UserData[userid] ? UserData[userid] : {};
+		author_last_rep = author_data["lastrep"] ? author_data["lastrep"] : 0;
+		now = Math.floor( Date.now() / 1000 );
+		diff = now - author_last_rep
+		if (diff <= 86400) return msg.reply("You can next give reputation in "+diff.toString()+" seconds!")
 
-		usersdata["rep"] = usersdata["rep"] ? usersdata["rep"] + 1 : 1;
-		UserData[userid] = usersdata;
+		users_data = UserData[userid] ? UserData[userid] : {};
+
+		users_data["rep"] = users_data["rep"] ? users_data["rep"] + 1 : 1;
+		author_data["lastrep"] = now;
+
+		UserData[userid] = users_data;
+		UserData[msg.author.id] = author_data
 		writeUserData();
-		msg.reply("You have given 1 reputation point to the user! They now have \""+usersdata["rep"].toString()+"\" rep.");
+		msg.reply("You have given 1 reputation point to the user! They now have "+usersdata["rep"].toString()+" rep.");
 
 	}
-/*
-//Temp command to check someone's rep. Need a profile or something.
-	if (msg.content.startsWith(prefix + 'viewrep')) {
-		userToRep = msg.mentions.members.first().id;
-		if(!userToRep) {return msg.reply("USAGE: "+prefix+"viewrep "+" <user mention>")};
-		fs.readFile(USER_DATA_FILE, 'utf8', (err, data) => {
-			if (err) {
-				console.error(err);
-				msg.reply("Something went wrong!");
-				return;
-			}
-			usersdata = JSON.parse(data); //Grab the userdata
-			userdata = usersdata[userToRep] ? usersdata[userToRep] : {}; // Grab the user we care about
-			rep = userdata["rep"] ? userdata["rep"] : 0; // Get their rep
-			msg.reply("This person has "+String(rep)+" rep.");
-		});
 
-	}
-*/
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		 .setTitle(`Catbot Help`)
