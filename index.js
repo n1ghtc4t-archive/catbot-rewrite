@@ -2,14 +2,18 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 
-const USER_DATA_FILE = require("./userdata.json");
+const USER_DATA_FILE = "./userdata.json";
 
-client.on('ready', () => {
-  console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-  client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
-});
+const UserData = require(USER_DATA_FILE);
 
 let prefix = "c:";
+
+
+client.on('ready', () => {
+	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
+	client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
+});
+
 
 client.on('message', msg => {
 	if (msg.author.bot) return;
@@ -136,57 +140,31 @@ client.on('message', msg => {
 	if(msg.content.startsWith(prefix + "sorry")) {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
-	
+
 	if (msg.content.startsWith(prefix + 'rep')) {
-		let userToRep = msg.mentions.members.first().id;
-		let startingRep = 0;
-		//Check if there was actually a mention
-        if(!userToRep) {
-			return msg.reply("Please provide a user mention!");
-		}
-		//Read the userdata file (should really scan.. but then should really use a db engine)
-		fs.readFile(USER_DATA_FILE, 'utf8', (err, data) => {
-			if (err) {
-				if (err.code == "ENOENT") {
-					//Replace this with code to initialise file later
-					console.log("User data file does not exist. Please initialise with {}");
-					return;
-				} else {
-					console.error(err);
-					return;
-				}
-			}
-			usersdata = JSON.parse(data); //Grab the userdata
-			userdata = usersdata[userToRep] ? usersdata[userToRep] : {}; // Grab the user we care about
-			currentRep = userdata["rep"] ? userdata["rep"] : startingRep; // Get their rep
-			newRep = currentRep + 1; //New rep
-			userdata["rep"] = newRep; //Set their rep
-			usersdata[userToRep] = userdata; //Write in the userdata to the dictionary
-			//Write the user data to the file
-			fs.writeFile(USER_DATA_FILE, JSON.stringify(usersdata), err => {
-				if (err) { console.error(err) };
-			});
-			msg.reply("You have given 1 reputation point to the user!");
-		});
-	}
-//Temp command to check someone's rep. Need a profile or something.
-	if (msg.content.startsWith(prefix + 'viewrep')) {
-		userToRep = msg.mentions.members.first().id;
-		if(!userToRep) {return msg.reply("USAGE: "+prefix+"viewrep "+" <user mention>")};
-		fs.readFile(USER_DATA_FILE, 'utf8', (err, data) => {
-			if (err) {
-				console.error(err);
-				msg.reply("Something went wrong!");
-				return;
-			}
-			usersdata = JSON.parse(data); //Grab the userdata
-			userdata = usersdata[userToRep] ? usersdata[userToRep] : {}; // Grab the user we care about
-			rep = userdata["rep"] ? userdata["rep"] : 0; // Get their rep
-			msg.reply("This person has "+String(rep)+" rep.");
-		});
+		var user = msg.mentions.members.first();
+		if(!user) return msg.reply("Please provide a user mention!") ;
+		userid = user.id;
+		if (userid == msg.author.id) return msg.reply("You can't give reputation to yourself!");
+		author_data = UserData[msg.author.id] ? UserData[msg.author.id] : {};
+
+		author_last_rep = author_data["lastrep"] ? author_data["lastrep"] : 0;
+		now = Math.floor( Date.now() / 1000 );
+		diff = now - author_last_rep
+		if (diff <= 86400) return msg.reply("You can next give reputation in "+(86400 - diff).toString()+" seconds!")
+
+		users_data = UserData[userid] ? UserData[userid] : {};
+
+		users_data["rep"] = users_data["rep"] ? users_data["rep"] + 1 : 1;
+		author_data["lastrep"] = now;
+
+		UserData[userid] = users_data;
+		UserData[msg.author.id] = author_data
+		writeUserData();
+		msg.reply("You have given 1 reputation point to the user! They now have "+users_data["rep"].toString()+" rep.");
 
 	}
-    
+
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		 .setTitle(`Catbot Help`)
@@ -208,6 +186,12 @@ function clean(text) {
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
   else
       return text;
+}
+
+function writeUserData() {
+	fs.writeFile(USER_DATA_FILE, JSON.stringify(UserData), err => {
+		if (err) { console.error(err) };
+	});
 }
 
 client.login(process.env.BOT_TOKEN);
