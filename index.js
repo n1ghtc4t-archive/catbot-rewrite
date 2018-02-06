@@ -58,9 +58,7 @@ client.on('message', msg => {
   };
 
 	if (msg.content.startsWith(prefix + 'userinfo')) {
-		return msg.channel.send("Sorry, you cannot use this command");
-	}
-	/* 
+		//return msg.channel.send("Sorry, you cannot use this command");	
 	let userMention = msg.mentions.users.first()
 	if (!userMention) {
 		const embed = new Discord.RichEmbed()
@@ -73,7 +71,8 @@ client.on('message', msg => {
 		.addField(`Joined Discord`, `${msg.author.createdAt.toString().substr(0, 15)}`)
 		.addField(`Is a bot`, `${msg.author.bot}`)
 		.addField(`User ID`, `${msg.author.id}`)
-	}   
+		msg.channel.send({embed})
+	}  else { 
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${userMention.username}`, userMention.avatarURL)
 		.addField(`Full username`, `${userMention.tag}`)
@@ -84,7 +83,9 @@ client.on('message', msg => {
 		.addField(`Joined Discord`, `${userMention.createdAt.toString().substr(0, 15)}`)
 		.addField(`Is a bot`, `${userMention.bot}`)
 		.addField(`User ID`, `${userMention.id}`) 
-		*/
+		msg.channel.send({embed})
+	}
+	}
 
 	if (msg.content.startsWith(prefix + 'say')) {
 		let args = msg.content.split(' ').slice(1).join(' ');
