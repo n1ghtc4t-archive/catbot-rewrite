@@ -160,7 +160,8 @@ client.on('message', msg => {
 	} */
 	if (msg.content.startsWith(prefix + 'rep')) {
 		var user = msg.mentions.members.first();
-		!user ? return msg.reply("Please provide a user mention!") : userid = user.id;
+		if(!user) return msg.reply("Please provide a user mention!") ;
+		userid = user.id;
 		if (userid == msg.author.id) return msg.reply("You can't give reputation to yourself!");
 
 		usersdata = UserData[userid] ? UserData[userid] : {};
