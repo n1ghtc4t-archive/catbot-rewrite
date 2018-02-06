@@ -51,43 +51,43 @@ client.on('message', msg => {
 	}
 	
 	if (msg.content.startsWith(prefix + 'cat')) {
-  const {get} = require("snekfetch");
-      get("https://random.cat/meow").then(res => {
-      msg.channel.send(res.body.file)
-      })
+  		const {get} = require("snekfetch");
+      		get("https://random.cat/meow").then(res => {
+      			msg.channel.send(res.body.file)
+      	});
   };
 
 	if (msg.content.startsWith(prefix + 'userinfo')) {
 		try {
 		//return msg.channel.send("Sorry, you cannot use this command");	
-	let userMention = msg.mentions.users.first()
-	if (!userMention) {
-		const embed = new Discord.RichEmbed()
-		.setTitle(`Information about ${msg.author.username}`, msg.author.avatarURL)
-		.addField(`Full username`, `${msg.author.tag}`)
-		.addField(`Nickname`, `${msg.author.displayName}`)
-		.addField(`Status`, `${msg.author.presence.status}`)
-		.addField(`Roles`, `WIP`)
-		.addField(`Joined guild`, `${msg.member.joinedAt.substr(0, 15)}`)
-		.addField(`Joined Discord`, `${msg.member.createdAt.substr(0, 15)}`)
-		.addField(`Is a bot`, `${msg.author.bot}`)
-		.addField(`User ID`, `${msg.author.id}`)
-		msg.channel.send({embed})
-	}  else { 
-		const embed = new Discord.RichEmbed()
-		.setTitle(`Information about ${userMention.username}`, userMention.avatarURL)
-		.addField(`Full username`, `${userMention.tag}`)
-		.addField(`Nickname`, `${userMention.displayName}`)
-		.addField(`Status`, `${userMention.presence.status}`)
-		.addField(`Roles`, `WIP`)
-		.addField(`Joined guild`, `${userMention.joinedAt.substr(0, 15)}`)
-		.addField(`Joined Discord`, `${userMention.createdAt.substr(0, 15)}`)
-		.addField(`Is a bot`, `${userMention.bot}`)
-		.addField(`User ID`, `${userMention.id}`) 
-		msg.channel.send({embed})
-	}
+			let userMention = msg.mentions.users.first()
+			if (!userMention) {
+				const embed = new Discord.RichEmbed()
+				.setTitle(`Information about ${msg.author.username}`, msg.author.avatarURL)
+				.addField(`Full username`, `${msg.author.tag}`)
+				.addField(`Nickname`, `${msg.author.displayName}`)
+				.addField(`Status`, `${msg.author.presence.status}`)
+				.addField(`Roles`, `WIP`)
+				.addField(`Joined guild`, `${msg.member.joinedAt.toString().substr(0, 15)}`)
+				.addField(`Joined Discord`, `${msg.member.createdAt.toString().substr(0, 15)}`)
+				.addField(`Is a bot`, `${msg.author.bot}`)
+				.addField(`User ID`, `${msg.author.id}`)
+				msg.channel.send({embed})
+			} else { 
+				const embed = new Discord.RichEmbed()
+				.setTitle(`Information about ${userMention.username}`, userMention.avatarURL)
+				.addField(`Full username`, `${userMention.tag}`)
+				.addField(`Nickname`, `${userMention.displayName}`)
+				.addField(`Status`, `${userMention.presence.status}`)
+				.addField(`Roles`, `WIP`)
+				.addField(`Joined guild`, `${userMention.joinedAt.toString().substr(0, 15)}`)
+				.addField(`Joined Discord`, `${userMention.createdAt.toString().substr(0, 15)}`)
+				.addField(`Is a bot`, `${userMention.bot}`)
+				.addField(`User ID`, `${userMention.id}`) 
+				msg.channel.send({embed})
+			}
 		} catch (err) {
-		msg.channel.send(err.stack, {code: true})	
+			msg.channel.send(err.stack, {code: true})	
 		}
 	}
 
