@@ -58,6 +58,7 @@ client.on('message', msg => {
   };
 
 	if (msg.content.startsWith(prefix + 'userinfo')) {
+		try {
 		//return msg.channel.send("Sorry, you cannot use this command");	
 	let userMention = msg.mentions.users.first()
 	if (!userMention) {
@@ -85,6 +86,9 @@ client.on('message', msg => {
 		.addField(`User ID`, `${userMention.id}`) 
 		msg.channel.send({embed})
 	}
+		} catch (err) {
+		msg.channel.send(err.stack, {code: true})	
+		}
 	}
 
 	if (msg.content.startsWith(prefix + 'say')) {
