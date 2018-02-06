@@ -179,11 +179,11 @@ client.on('message', msg => {
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
 		.addField(`General`, `\`ping\`, \`invite\``)
-		.addField(`Fun`, `\`catify\` \`cat\``)
-		.addField(`Util`, `\`serverinfo\``)
+		.addField(`Fun`, `\`catify\` \`cat\`, \`rep\``)
+		.addField(`Util`, `\`serverinfo\`, \`userinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
-		.addField(`Work In Progress`, `\`userinfo\``)
+		.addField(`Work In Progress`, `None!`)
 		
 		msg.author.send({embed});
 	}
