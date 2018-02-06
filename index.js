@@ -65,7 +65,7 @@ client.on('message', msg => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.author.username}`, msg.author.avatarURL)
 		.addField(`Full username`, `${msg.author.tag}`)
-		.addField(`Nickname`, `${msg.author.displayName}`)
+		.addField(`Nickname`, `${msg.author.displayName || "none"}`)
 		.addField(`Status`, `${msg.author.presence.status}`)
 		.addField(`Roles`, `WIP`)
 		.addField(`Joined guild`, `Soon:tm:`)
