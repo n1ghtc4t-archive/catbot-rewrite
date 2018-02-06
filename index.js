@@ -2,14 +2,17 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const fs = require("fs");
 
-const USER_DATA_FILE = "userdata.json";
+const USER_DATA_FILE = "./userdata.json";
 
-client.on('ready', () => {
-  console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-  client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
-});
+const UserData = require(USER_DATA_FILE);
 
 let prefix = "c:";
+
+client.on('ready', () => {
+	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
+	client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
+});
+
 
 client.on('message', msg => {
 	if (msg.author.bot) return;
@@ -122,12 +125,12 @@ client.on('message', msg => {
 	if(msg.content.startsWith(prefix + "sorry")) {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
-	
+/*	
 	if (msg.content.startsWith(prefix + 'rep')) {
 		let userToRep = msg.mentions.members.first().id;
 		let startingRep = 0;
 		//Check if there was actually a mention
-        if(!userToRep) {
+		if(!userToRep) {
 			return msg.reply("Please provide a user mention!");
 		}
 		//Read the userdata file (should really scan.. but then should really use a db engine)
@@ -154,7 +157,21 @@ client.on('message', msg => {
 			});
 			msg.reply("You have given 1 reputation point to the user!");
 		});
+	} */
+	if (msg.content.startsWith(prefix + 'rep')) {
+		var userid = msg.mentions.members.first().id;
+		if (!userid) return msg.reply("Please provide a user mention!");
+		if (userid == msg.author.id) return msg.reply("You can't give reputation to yourself!");
+
+		usersdata = UserData[userid] ? UserData[userid] : {};
+
+		usersdata["rep"] = usersdata["rep"] ? usersdata["rep"] + 1 : 1;
+		UserData[userid] = usersdata;
+		writeUserData();
+		msg.reply("You have given 1 reputation point to the user! They now have \""+usersdata["rep"].toString()+"\" rep.");
+
 	}
+/*
 //Temp command to check someone's rep. Need a profile or something.
 	if (msg.content.startsWith(prefix + 'viewrep')) {
 		userToRep = msg.mentions.members.first().id;
@@ -172,7 +189,7 @@ client.on('message', msg => {
 		});
 
 	}
-    
+*/
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
 		 .setTitle(`Catbot Help`)
@@ -194,6 +211,12 @@ function clean(text) {
     return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
   else
       return text;
+}
+
+function writeUserData() {
+	fs.writeFile(USER_DATA_FILE, JSON.stringify(UserData), err => {
+		if (err) { console.error(err) };
+	});
 }
 
 client.login(process.env.BOT_TOKEN);
