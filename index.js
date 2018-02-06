@@ -136,7 +136,7 @@ client.on('message', msg => {
 		author_last_rep = author_data["lastrep"] ? author_data["lastrep"] : 0;
 		now = Math.floor( Date.now() / 1000 );
 		diff = now - author_last_rep
-		if (diff <= 86400) return msg.reply("You can next give reputation in "+diff.toString()+" seconds!")
+		if (diff <= 86400) return msg.reply("You can next give reputation in "+(86400 - diff).toString()+" seconds!")
 
 		users_data = UserData[userid] ? UserData[userid] : {};
 
