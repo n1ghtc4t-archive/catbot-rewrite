@@ -179,7 +179,7 @@ client.on('message', msg => {
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
 		.addField(`General`, `\`ping\`, \`invite\``)
-		.addField(`Fun`, `\`catify\` \`cat\`, \`rep\``)
+		.addField(`Fun`, `\`catify\`, \`cat\`, \`rep\``)
 		.addField(`Util`, `\`serverinfo\`, \`userinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
