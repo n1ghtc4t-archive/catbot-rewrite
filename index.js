@@ -69,7 +69,7 @@ client.on('message', msg => {
 				.setTitle(`Information about ${msg.author.username}`, msg.author.avatarURL)
 				.setColor('RANDOM')
 				.addField(`Full username`, `${msg.author.tag}`)
-				.addField(`Nickname`, `${msg.author.nickname || "None"}`)
+				.addField(`Nickname`, `${msg.member.nickname || "None"}`)
 				.addField(`Status`, `${msg.author.presence.status}`)
 				.addField(`Roles`, `Soon:tm:`)
 				.addField(`Joined guild`, `Soon:tm:`)
