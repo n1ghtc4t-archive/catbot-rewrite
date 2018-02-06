@@ -91,7 +91,7 @@ client.on('message', msg => {
 		msg.channel.send(`${args}`);
 	}
 	
-	if (msg.content.startsWith(prefix + 'serverinfo')) 
+	if (msg.content.startsWith(prefix + 'serverinfo')){ 
 		const embed = new Discord.RichEmbed()
 		 .setTitle(`Information about ${msg.guild.name}`)
 		 .setColor("RANDOM")
