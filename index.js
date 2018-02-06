@@ -54,11 +54,11 @@ client.on('message', msg => {
 	}
 	
 	if (msg.content.startsWith(prefix + 'cat')) {
-  		const {get} = require("snekfetch");
+  		const {get} = require("snekfetch")
       		get("https://random.cat/meow").then(res => {
-      			msg.channel.send(res.body.file)
-      	});
-  };
+      			msg.channel.send(res.body.file);
+      		});
+  	}
 
 	if (msg.content.startsWith(prefix + 'userinfo')) {
 		try {
