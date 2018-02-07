@@ -3,7 +3,6 @@ const client = new Discord.Client();
 const fs = require("fs");
 
 const USER_DATA_FILE = "./userdata.json";
-
 const userData = require(USER_DATA_FILE);
 
 let prefix = "c:";
@@ -205,9 +204,12 @@ function clean(text) {
 }
 
 function writeUserData() {
+    /*
+    //Heroku has read only file system so don't do anything here at the moment
 	fs.writeFile(USER_DATA_FILE, JSON.stringify(UserData), err => {
 		if (err) { console.error(err) };
 	});
+    */
 }
 
 client.login(process.env.BOT_TOKEN);
