@@ -5,24 +5,30 @@ const fs = require("fs");
 const USER_DATA_FILE = "./userdata.json";
 const userData = require(USER_DATA_FILE);
 
-let prefix = "c:";
+let PREFIX = "c:";
 
-client.on('ready', () => {
-	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-	client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
-});
-
-
-client.on('message', msg => {
-	if (msg.author.bot) return;
-
-	if (msg.content.startsWith(prefix + 'ping')) {
-		msg.channel.send("Pinging...").then(sent => {
-			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
-		});
+//Command definitions! For the lols
+/*
+Sample definition:
+cmds["cmdName"] = {
+	name: "cmdName",
+	aliases: [],
+	category: "some category",
+	func: (msg, parameters) => {
 	}
 
-	if(msg.content.startsWith(prefix + 'eval')) {
+}
+*/
+
+
+let cmds = {}
+
+cmds["eval"] = {
+	name: "eval",
+	aliases: [],
+	category: "something",
+	help: "eval help",
+	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
 		let evall = msg.content.split(' ')[0];
 		let evalstuff = msg.content.split(" ").slice(1).join(" ");
@@ -51,15 +57,37 @@ client.on('message', msg => {
 			 msg.channel.send({embed});
 		}
 	}
-	
-	if (msg.content.startsWith(prefix + 'cat')) {
-  		const {get} = require("snekfetch")
-      		get("https://random.cat/meow").then(res => {
-      			msg.channel.send(res.body.file);
-      		});
-  	}
+}
 
-	if (msg.content.startsWith(prefix + 'userinfo')) {
+cmds["ping"] = {
+	name: "ping",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
+		msg.channel.send("Pinging...").then(sent => {
+			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
+		});
+	}
+}
+
+cmds["cat"] = {
+	name: "cat",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
+			const {get} = require("snekfetch")
+			get("https://random.cat/meow").then(res => {
+				msg.channel.send(res.body.file);
+			});
+	}
+}
+
+
+cmds["userinfo"] = {
+	name: "userinfo",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		try {
 			// return msg.channel.send("Sorry, you cannot use this command");	
 			let userMention = msg.mentions.users.first()
@@ -104,8 +132,14 @@ client.on('message', msg => {
 			msg.channel.send(err.stack, {code: true});	
 		}
 	}
+}
 
-	if (msg.content.startsWith(prefix + 'say')) {
+
+cmds["say"] = {
+	name: "say",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
 		if (msg.author.id !== "260246864979296256") {
 			return msg.reply("no");
@@ -116,8 +150,14 @@ client.on('message', msg => {
 		msg.delete();
 		msg.channel.send(`${args}`);
 	}
-	
-	if (msg.content.startsWith(prefix + 'serverinfo')){ 
+}
+
+
+cmds["serverinfo"] = {
+	name: "serverinfo",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
 		.setColor("RANDOM")
@@ -129,27 +169,50 @@ client.on('message', msg => {
 		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`) 
 		.addField(`Region`, `${msg.guild.region}`) 
 		.addField(`Verification Level`, `${msg.guild.verificationLevel}`);
-		 
+
 		msg.channel.send({embed});
 	}
-	
-	if (msg.content.startsWith(prefix + 'catify')) {
+}
+
+
+cmds["catify"] = {
+	name: "catify",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		let args = msg.content.split(" ").slice(1);
 		if (!args) {
 			return msg.reply("This command requires arguments.");
 		}
 		msg.channel.send("🐱" + args.join("🐱") + "🐱");
 	}
-	
-	if (msg.content.startsWith(prefix + 'invite')) {
+}
+
+
+cmds["invite"] = {
+	name: "invite",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
-	
-	if(msg.content.startsWith(prefix + "sorry")) {
+}
+
+
+cmds["sorry"] = {
+	name: "sorry",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
+}
 
-	if (msg.content.startsWith(prefix + 'rep')) {
+cmds["rep"] = {
+	name: "rep",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!");
 		userid = user.id;
@@ -170,17 +233,27 @@ client.on('message', msg => {
 		userData[msg.author.id] = author_data
 		writeUserData();
 		msg.reply("You have given 1 reputation point to the user! They now have "+users_data["rep"].toString()+" rep.");
-	
 	}
-	
-	if (msg.content.startsWith(prefix + 'dog')) {
+}
+
+cmds["dog"] = {
+	name: "dog",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
 			msg.channel.send(res.body.file);
 		});
 	}
 
-	if (msg.content.startsWith(prefix + 'help')) {
+}
+
+cmds["help"] = {
+	name: "help",
+	aliases: [],
+	category: "something",
+	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
@@ -193,7 +266,29 @@ client.on('message', msg => {
 		
 		msg.author.send({embed});
 	}
+}
 
+client.on('ready', () => {
+	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
+	client.user.setGame(PREFIX+'help for help!', 'https://www.twitch.tv/goddycodes');
+});
+
+
+client.on('message', msg => {
+	if (msg.author.bot) return;
+	if ( msg.content.startswith(PREFIX) ){
+		message = msg.content;
+		params = message.slice(PREFIX.length).split(' ');
+		if (params[0] in cmds){
+			if ( DEBUG ) console.log("Running command \""+params[0]+"\" from message:\n"+message);
+			try{
+				cmds[params[0]].func(msg, params);
+			} catch (err) {
+				msg.channel.send("Something went wrong! This event has been logged.");
+				console.error("Something went wrong. Was running command \""+params[0]+"\" from message \n"+message+"\nGot the stack trace:\n"+err.stack)
+			}
+		}
+	}
 });
 
 function clean(text) {
