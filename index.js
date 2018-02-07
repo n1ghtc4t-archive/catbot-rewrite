@@ -6,6 +6,7 @@ const USER_DATA_FILE = "./userdata.json";
 const userData = require(USER_DATA_FILE);
 
 let PREFIX = "c:";
+let DEBUG = true;
 
 //Command definitions! For the lols
 /*
