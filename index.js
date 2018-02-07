@@ -303,6 +303,7 @@ cmds["help"] = {
 		}
 		
 		msg.author.send({embed});
+		msg.channel.send("Sending help, check your DMs!");
 	}
 }
 
@@ -322,7 +323,7 @@ let categories = {
 
 
 for (cmd in cmds) {
-	cat = cmds[cmd]["category"]
+	cat = cmds[cmd]["category"];
 	if ( !(cat in categories) ) categories[cat] = [];
 	categories[cat].push(cmd);
 }
