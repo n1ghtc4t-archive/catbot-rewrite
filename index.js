@@ -22,12 +22,12 @@ cmds["cmdName"] = {
 */
 
 
-let cmds = {}
+let cmds = {};
 
 cmds["eval"] = {
 	name: "eval",
 	aliases: [],
-	category: "something",
+	category: "Dev",
 	help: "eval help",
 	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
@@ -63,7 +63,8 @@ cmds["eval"] = {
 cmds["ping"] = {
 	name: "ping",
 	aliases: [],
-	category: "something",
+	category: "General",
+	help: "ping help",
 	func: (msg, parameters) => {
 		msg.channel.send("Pinging...").then(sent => {
 			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
@@ -74,7 +75,8 @@ cmds["ping"] = {
 cmds["cat"] = {
 	name: "cat",
 	aliases: [],
-	category: "something",
+	category: "Fun",
+	help: "cat help",
 	func: (msg, parameters) => {
 			const {get} = require("snekfetch")
 			get("https://random.cat/meow").then(res => {
@@ -87,7 +89,8 @@ cmds["cat"] = {
 cmds["userinfo"] = {
 	name: "userinfo",
 	aliases: [],
-	category: "something",
+	category: "Util",
+	help: "Util help",
 	func: (msg, parameters) => {
 		try {
 			// return msg.channel.send("Sorry, you cannot use this command");	
@@ -139,7 +142,8 @@ cmds["userinfo"] = {
 cmds["say"] = {
 	name: "say",
 	aliases: [],
-	category: "something",
+	category: "Dev",
+	help: "say help",
 	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
 		if (msg.author.id !== "260246864979296256") {
@@ -157,7 +161,8 @@ cmds["say"] = {
 cmds["serverinfo"] = {
 	name: "serverinfo",
 	aliases: [],
-	category: "something",
+	category: "Util",
+	help: "serverinfo help",
 	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
@@ -179,7 +184,8 @@ cmds["serverinfo"] = {
 cmds["catify"] = {
 	name: "catify",
 	aliases: [],
-	category: "something",
+	category: "Fun",
+	help: "catify help",
 	func: (msg, parameters) => {
 		let args = msg.content.split(" ").slice(1);
 		if (!args) {
@@ -193,7 +199,8 @@ cmds["catify"] = {
 cmds["invite"] = {
 	name: "invite",
 	aliases: [],
-	category: "something",
+	category: "General",
+	help: "invite help",
 	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
@@ -203,7 +210,8 @@ cmds["invite"] = {
 cmds["sorry"] = {
 	name: "sorry",
 	aliases: [],
-	category: "something",
+	category: "Hidden",
+	help: "sorry help",
 	func: (msg, parameters) => {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
@@ -212,7 +220,8 @@ cmds["sorry"] = {
 cmds["rep"] = {
 	name: "rep",
 	aliases: [],
-	category: "something",
+	category: "Fun",
+	help: "rep help",
 	func: (msg, parameters) => {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!");
@@ -240,7 +249,8 @@ cmds["rep"] = {
 cmds["dog"] = {
 	name: "dog",
 	aliases: [],
-	category: "something",
+	category: "Work In Progress",
+	help: "dog help",
 	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
@@ -249,11 +259,12 @@ cmds["dog"] = {
 	}
 
 }
-
+/* Old help for reference
 cmds["help"] = {
 	name: "help",
 	aliases: [],
-	category: "something",
+	category: "Hidden",
+	help: "help help",
 	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
@@ -267,6 +278,40 @@ cmds["help"] = {
 		
 		msg.author.send({embed});
 	}
+}
+*/
+
+cmds["help"] = {
+	name: "help",
+	aliases: [],
+	category: "Hidden",
+	help: "help help",
+	func: (msg, parameters) => {
+		const embed = new Discord.RichEmbed()
+		.setTitle(`Catbot Help`)
+		.setColor(0xc6c6c6);
+		for (cat in categories) {
+			if (cat == "Hidden") continue;
+			catStr = "";
+			cmdNum = categories[cat].length;
+			for (var i = 0; i < cmdNum; i++){
+				catStr += "`" + categories[cat][i] + "`";
+				if (i < cmdNum - 1) catStr += ", ";
+			}
+			embed.addField(cat, catStr);
+		}
+		
+		msg.author.send({embed});
+	}
+}
+
+// Put together the categories
+// This might be better done on startup or able to accessed from a command for hot-modification of commands?
+let categories = {}
+for (cmd in cmds) {
+	cat = cmds[cmd]["category"]
+	if ( !(cat in categories) ) categories[cat] = [];
+	categories[cat].push(cmd);
 }
 
 client.on('ready', () => {
