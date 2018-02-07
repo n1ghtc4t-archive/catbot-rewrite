@@ -21,6 +21,7 @@ cmds["cmdName"] = {
 }
 */
 
+//Define the commands!
 
 let cmds = {};
 
@@ -305,15 +306,28 @@ cmds["help"] = {
 	}
 }
 
+
+
 // Put together the categories
 // This might be better done on startup or able to accessed from a command for hot-modification of commands?
-let categories = {}
+// Explicitly naming categories here for manual ordering
+let categories = {
+	"General" : [],
+	"Fun" : [],
+	"Util" : [],
+	"Mod" : ["Soon"],
+	"Dev" : [],
+	"Work In Progress" : []
+}
+
+
 for (cmd in cmds) {
 	cat = cmds[cmd]["category"]
 	if ( !(cat in categories) ) categories[cat] = [];
 	categories[cat].push(cmd);
 }
 
+//Start the client and get going!
 client.on('ready', () => {
 	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
 	client.user.setGame(PREFIX+'help for help!', 'https://www.twitch.tv/goddycodes');
