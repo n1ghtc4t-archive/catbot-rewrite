@@ -173,6 +173,13 @@ client.on('message', msg => {
 		msg.reply("You have given 1 reputation point to the user! They now have "+users_data["rep"].toString()+" rep.");
 	
 	}
+	
+	if (msg.content.startsWith(prefix + 'dog')) {
+		const {get} = require("snekfetch")
+		get("https://random.dog/woof").then(res => {
+			msg.channel.send(res.body.file);
+		});
+	}
 
 	if (msg.content.startsWith(prefix + 'help')) {
 		const embed = new Discord.RichEmbed()
@@ -183,7 +190,7 @@ client.on('message', msg => {
 		.addField(`Util`, `\`serverinfo\`, \`userinfo\``)
 		.addField(`Mod`, `Soon`)
 		.addField(`Dev`, `\`eval\`, \`say\``)
-		.addField(`Work In Progress`, `None!`)
+		.addField(`Work In Progress`, `\`dog\``)
 		
 		msg.author.send({embed});
 	}
