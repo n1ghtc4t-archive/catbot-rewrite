@@ -276,7 +276,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
 	if (msg.author.bot) return;
-	if ( msg.content.startswith(PREFIX) ){
+	if ( msg.content.startsWith(PREFIX) ){
 		message = msg.content;
 		params = message.slice(PREFIX.length).split(' ');
 		if (params[0] in cmds){
