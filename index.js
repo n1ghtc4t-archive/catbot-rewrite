@@ -82,7 +82,7 @@ cmds["cat"] = {
 			get("https://random.cat/meow").then(res => {
 				var filename = res.body
 				const embed = new Discord.RichEmbed()
-				.setImage(filename[file])
+				.setImage(filename["file"])
 				// msg.channel.send(res.body.file);
 				
 				msg.channel.send({embed});
