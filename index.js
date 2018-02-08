@@ -294,7 +294,7 @@ cmds["help"] = {
 			let default_help = "This command doesn't have a help written yet!";
 			msg.channel.send(cmds[params[1]]["help"] ? cmds[params[1]]["help"] : default_help); 
 		} else {
-			msg.channel.send(`I couldn't find this command. Type \`${PREFIX} help\` to get the command listing.`);
+			msg.channel.send(`I couldn't find this command. Type \`${PREFIX}help\` to get the command listing.`);
 		}
 	}
 }
@@ -309,8 +309,7 @@ let categories = {
 	"Fun" : [],
 	"Util" : [],
 	"Mod" : ["Soon"],
-	"Dev" : [],
-	"Work In Progress" : []
+	"Dev" : []
 }
 
 
