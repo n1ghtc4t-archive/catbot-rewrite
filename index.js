@@ -298,11 +298,14 @@ cmds["help"] = {
 		for (cat in categories) {
 			if (cat == "Hidden") continue;
 			catStr = "";
+			catStr = "`" + categories[cat].join("`, `") + "`"
+/*			
 			cmdNum = categories[cat].length;
 			for (var i = 0; i < cmdNum; i++){
 				catStr += "`" + categories[cat][i] + "`";
 				if (i < cmdNum - 1) catStr += ", ";
 			}
+*/
 			embed.addField(cat, catStr);
 		}
 		
