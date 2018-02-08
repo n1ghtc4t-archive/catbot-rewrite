@@ -80,7 +80,12 @@ cmds["cat"] = {
 	func: (msg, parameters) => {
 			const {get} = require("snekfetch")
 			get("https://random.cat/meow").then(res => {
-				msg.channel.send(res.body.file);
+				var filename = res.body
+				const embed = new Discord.RichEmbed()
+				.setImage(filename[file])
+				// msg.channel.send(res.body.file);
+				
+				msg.channel.send({embed});
 			});
 	}
 }
