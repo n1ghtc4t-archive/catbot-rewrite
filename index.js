@@ -276,7 +276,7 @@ cmds["help"] = {
 	name: "help",
 	aliases: [],
 	category: "Hidden",
-	help: `\`\`\`Usage: ${prefix}help [command name]\n\nRetrieves help on the specified command, or sends you a list of commands.\`\`\``,
+	help: `\`\`\`Usage: ${PREFIX}help [command name]\n\nRetrieves help on the specified command, or sends you a list of commands.\`\`\``,
 	func: (msg, params) => {
 		if (params.length == 1){
 			const embed = new Discord.RichEmbed()
