@@ -5,26 +5,35 @@ const fs = require("fs");
 const USER_DATA_FILE = "./userdata.json";
 const userData = require(USER_DATA_FILE);
 
-let prefix = "c:";
+let PREFIX = "c:";
+let DEBUG = true;
 
-client.on('ready', () => {
-	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-	client.user.setGame('c:help for help!', 'https://www.twitch.tv/goddycodes');
-});
-
-
-client.on('message', msg => {
-	if (msg.author.bot) return;
-
-	if (msg.content.startsWith(prefix + 'ping')) {
-		msg.channel.send("Pinging...").then(sent => {
-			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
-		});
+//Command definitions! For the lols
+/*
+Sample definition:
+cmds["cmdName"] = {
+	name: "cmdName",
+	aliases: [],
+	category: "some category",
+	func: (msg, parameters) => {
 	}
 
-	if(msg.content.startsWith(prefix + 'eval')) {
+}
+*/
+
+//Define the commands!
+
+let cmds = {};
+
+//TBD: Use parameters to define args
+cmds["eval"] = {
+	name: "eval",
+	aliases: [],
+	category: "Dev",
+	help: "eval help",
+	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
-		let evall = msg.content.split(' ')[0];
+		let evall = msg.content.split(' ')[0]; //TBD: Human compiler warning: variable not used?
 		let evalstuff = msg.content.split(" ").slice(1).join(" ");
 		try {
 			const code = msg.content.split(" ").slice(1).join(" ");
@@ -51,15 +60,40 @@ client.on('message', msg => {
 			 msg.channel.send({embed});
 		}
 	}
-	
-	if (msg.content.startsWith(prefix + 'cat')) {
-  		const {get} = require("snekfetch")
-      		get("https://random.cat/meow").then(res => {
-      			msg.channel.send(res.body.file);
-      		});
-  	}
+}
 
-	if (msg.content.startsWith(prefix + 'userinfo')) {
+cmds["ping"] = {
+	name: "ping",
+	aliases: [],
+	category: "General",
+	help: "ping help",
+	func: (msg, parameters) => {
+		msg.channel.send("Pinging...").then(sent => {
+			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
+		});
+	}
+}
+
+cmds["cat"] = {
+	name: "cat",
+	aliases: [],
+	category: "Fun",
+	help: "cat help",
+	func: (msg, parameters) => {
+			const {get} = require("snekfetch")
+			get("https://random.cat/meow").then(res => {
+				msg.channel.send(res.body.file);
+			});
+	}
+}
+
+//TBD: Roles, Joined guild date, joined discord date
+cmds["userinfo"] = {
+	name: "userinfo",
+	aliases: [],
+	category: "Util",
+	help: "Util help",
+	func: (msg, parameters) => {
 		try {
 			// return msg.channel.send("Sorry, you cannot use this command");	
 			let userMention = msg.mentions.users.first()
@@ -104,8 +138,15 @@ client.on('message', msg => {
 			msg.channel.send(err.stack, {code: true});	
 		}
 	}
+}
 
-	if (msg.content.startsWith(prefix + 'say')) {
+//TBD: Use parameters to define args
+cmds["say"] = {
+	name: "say",
+	aliases: [],
+	category: "Dev",
+	help: "say help",
+	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
 		if (msg.author.id !== "260246864979296256") {
 			return msg.reply("no");
@@ -116,8 +157,15 @@ client.on('message', msg => {
 		msg.delete();
 		msg.channel.send(`${args}`);
 	}
-	
-	if (msg.content.startsWith(prefix + 'serverinfo')){ 
+}
+
+
+cmds["serverinfo"] = {
+	name: "serverinfo",
+	aliases: [],
+	category: "Util",
+	help: "serverinfo help",
+	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
 		.setColor("RANDOM")
@@ -129,27 +177,56 @@ client.on('message', msg => {
 		.addField(`Created At`, `${msg.guild.createdAt.toString().substr(0, 15)}`) 
 		.addField(`Region`, `${msg.guild.region}`) 
 		.addField(`Verification Level`, `${msg.guild.verificationLevel}`);
-		 
+
 		msg.channel.send({embed});
 	}
-	
-	if (msg.content.startsWith(prefix + 'catify')) {
+}
+
+
+//TBD: Use parameters to define args
+cmds["catify"] = {
+	name: "catify",
+	aliases: [],
+	category: "Fun",
+	help: "catify help",
+	func: (msg, parameters) => {
 		let args = msg.content.split(" ").slice(1);
 		if (!args) {
 			return msg.reply("This command requires arguments.");
 		}
 		msg.channel.send("🐱" + args.join("🐱") + "🐱");
 	}
-	
-	if (msg.content.startsWith(prefix + 'invite')) {
+}
+
+
+cmds["invite"] = {
+	name: "invite",
+	aliases: [],
+	category: "General",
+	help: "invite help",
+	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
-	
-	if(msg.content.startsWith(prefix + "sorry")) {
+}
+
+
+cmds["sorry"] = {
+	name: "sorry",
+	aliases: [],
+	category: "Hidden",
+	help: "sorry help",
+	func: (msg, parameters) => {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
+}
 
-	if (msg.content.startsWith(prefix + 'rep')) {
+//TBD: Make "next give reputation" time user friendly.
+cmds["rep"] = {
+	name: "rep",
+	aliases: [],
+	category: "Fun",
+	help: "rep help",
+	func: (msg, parameters) => {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!");
 		userid = user.id;
@@ -170,17 +247,33 @@ client.on('message', msg => {
 		userData[msg.author.id] = author_data
 		writeUserData();
 		msg.reply("You have given 1 reputation point to the user! They now have "+users_data["rep"].toString()+" rep.");
-	
 	}
-	
-	if (msg.content.startsWith(prefix + 'dog')) {
+}
+
+cmds["dog"] = {
+	name: "dog",
+	aliases: [],
+	category: "Work In Progress",
+	help: "dog help",
+	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
-			msg.channel.send(res.body.file);
+			filename = res.body.toString();
+//            get("https://random.dog/"+filename).then(res => {
+//                msg.channel.send(res.body.file)
+//            });
+			msg.channel.send("https://random.dog/"+filename);
 		});
 	}
 
-	if (msg.content.startsWith(prefix + 'help')) {
+}
+/* Old help for reference
+cmds["help"] = {
+	name: "help",
+	aliases: [],
+	category: "Hidden",
+	help: "help help",
+	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Catbot Help`)
 		.setColor(0xc6c6c6)
@@ -193,7 +286,81 @@ client.on('message', msg => {
 		
 		msg.author.send({embed});
 	}
+}
+*/
 
+//TBD: Detailed help for individual commands
+cmds["help"] = {
+	name: "help",
+	aliases: [],
+	category: "Hidden",
+	help: "help help",
+	func: (msg, parameters) => {
+		const embed = new Discord.RichEmbed()
+		.setTitle(`Catbot Help`)
+		.setColor(0xc6c6c6);
+		for (cat in categories) {
+			if (cat == "Hidden") continue;
+			catStr = "";
+			catStr = "`" + categories[cat].join("`, `") + "`"
+/*			
+			cmdNum = categories[cat].length;
+			for (var i = 0; i < cmdNum; i++){
+				catStr += "`" + categories[cat][i] + "`";
+				if (i < cmdNum - 1) catStr += ", ";
+			}
+*/
+			embed.addField(cat, catStr);
+		}
+		
+		msg.author.send({embed});
+		msg.channel.send("Sending help, check your DMs!");
+	}
+}
+
+
+
+// Put together the categories
+// This might be better done on startup or able to accessed from a command for hot-modification of commands?
+// Explicitly naming categories here for manual ordering
+let categories = {
+	"General" : [],
+	"Fun" : [],
+	"Util" : [],
+	"Mod" : ["Soon"],
+	"Dev" : [],
+	"Work In Progress" : []
+}
+
+
+for (cmd in cmds) {
+	cat = cmds[cmd]["category"];
+	if ( !(cat in categories) ) categories[cat] = [];
+	categories[cat].push(cmd);
+}
+
+//Start the client and get going!
+client.on('ready', () => {
+	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
+	client.user.setGame(PREFIX+'help for help!', 'https://www.twitch.tv/goddycodes');
+});
+
+
+client.on('message', msg => {
+	if (msg.author.bot) return;
+	if ( msg.content.startsWith(PREFIX) ){
+		message = msg.content;
+		params = message.slice(PREFIX.length).split(' ');
+		if (params[0] in cmds){
+			if ( DEBUG ) console.log("Running command \""+params[0]+"\" from message:\n"+message);
+			try{
+				cmds[params[0]].func(msg, params);
+			} catch (err) {
+				msg.channel.send("Something went wrong! This event has been logged.");
+				console.error("Something went wrong. Was running command \""+params[0]+"\" from message \n"+message+"\nGot the stack trace:\n"+err.stack)
+			}
+		}
+	}
 });
 
 function clean(text) {
@@ -203,6 +370,7 @@ function clean(text) {
       		return text;
 }
 
+//TBD: Find a heroku friendly persistent data storage method
 function writeUserData() {
     /*
     //Heroku has read only file system so don't do anything here at the moment
