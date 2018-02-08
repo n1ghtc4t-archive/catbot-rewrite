@@ -276,7 +276,7 @@ cmds["help"] = {
 	name: "help",
 	aliases: [],
 	category: "Hidden",
-	help: "",
+	help: `\`\`\`Usage: ${prefix}help [command name]\n\nRetrieves help on the specified command, or sends you a list of commands.\`\`\``,
 	func: (msg, params) => {
 		if (params.length == 1){
 			const embed = new Discord.RichEmbed()
@@ -294,7 +294,7 @@ cmds["help"] = {
 			let default_help = "This command doesn't have a help written yet!";
 			msg.channel.send(cmds[params[1]]["help"] ? cmds[params[1]]["help"] : default_help); 
 		} else {
-			msg.channel.send(`I couldn't find this command. Type \`${prefix} help\` to get the command listing.`);
+			msg.channel.send(`I couldn't find this command. Type \`${PREFIX} help\` to get the command listing.`);
 		}
 	}
 }
