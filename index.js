@@ -25,6 +25,7 @@ cmds["cmdName"] = {
 
 let cmds = {};
 
+//TBD: Use parameters to define args
 cmds["eval"] = {
 	name: "eval",
 	aliases: [],
@@ -32,7 +33,7 @@ cmds["eval"] = {
 	help: "eval help",
 	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
-		let evall = msg.content.split(' ')[0];
+		let evall = msg.content.split(' ')[0]; //TBD: Human compiler warning: variable not used?
 		let evalstuff = msg.content.split(" ").slice(1).join(" ");
 		try {
 			const code = msg.content.split(" ").slice(1).join(" ");
@@ -86,7 +87,7 @@ cmds["cat"] = {
 	}
 }
 
-
+//TBD: Roles, Joined guild date, joined discord date
 cmds["userinfo"] = {
 	name: "userinfo",
 	aliases: [],
@@ -139,7 +140,7 @@ cmds["userinfo"] = {
 	}
 }
 
-
+//TBD: Use parameters to define args
 cmds["say"] = {
 	name: "say",
 	aliases: [],
@@ -182,6 +183,7 @@ cmds["serverinfo"] = {
 }
 
 
+//TBD: Use parameters to define args
 cmds["catify"] = {
 	name: "catify",
 	aliases: [],
@@ -218,6 +220,7 @@ cmds["sorry"] = {
 	}
 }
 
+//TBD: Make "next give reputation" time user friendly.
 cmds["rep"] = {
 	name: "rep",
 	aliases: [],
@@ -286,6 +289,7 @@ cmds["help"] = {
 }
 */
 
+//TBD: Detailed help for individual commands
 cmds["help"] = {
 	name: "help",
 	aliases: [],
@@ -366,6 +370,7 @@ function clean(text) {
       		return text;
 }
 
+//TBD: Find a heroku friendly persistent data storage method
 function writeUserData() {
     /*
     //Heroku has read only file system so don't do anything here at the moment
