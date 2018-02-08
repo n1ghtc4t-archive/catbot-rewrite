@@ -278,7 +278,7 @@ cmds["help"] = {
 	category: "Hidden",
 	help: "",
 	func: (msg, params) => {
-		if (params[0] == ""){
+		if (params[1] == ""){
 			const embed = new Discord.RichEmbed()
 			.setTitle(`Catbot Help`)
 			.setColor(0xc6c6c6);
@@ -290,9 +290,9 @@ cmds["help"] = {
 			}
 			msg.author.send({embed});
 			msg.channel.send("Sending help, check your DMs!");
-		} else if (params[0] in cmds) {
+		} else if (params[1] in cmds) {
 			let default_help = "This command doesn't have a help written yet!";
-			msg.channel.send(cmds[params[0]]["help"] ? cmds[params[0]]["help"] : default_help); 
+			msg.channel.send(cmds[params[1]]["help"] ? cmds[params[1]]["help"] : default_help); 
 		} else {
 			msg.channel.send("I couldn't find this command. Type \`${prefix} help\` to get the command listing.");
 		}
