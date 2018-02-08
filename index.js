@@ -33,8 +33,6 @@ cmds["eval"] = {
 	help: "eval help",
 	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
-		let evall = msg.content.split(' ')[0]; //TBD: Human compiler warning: variable not used?
-		let evalstuff = msg.content.split(" ").slice(1).join(" ");
 		try {
 			const code = msg.content.split(" ").slice(1).join(" ");
 			let evaled = eval(code);
@@ -48,14 +46,14 @@ cmds["eval"] = {
 			 const embed = new Discord.RichEmbed()
 			 .setTitle(`Evaluation:`)
 			 .setColor("0x4f351")
-			 .setDescription(`📥 Input: \n \`\`\`${evalstuff}\`\`\` \n 📤 Output: \n  \`\`\`${clean(evaled)}\`\`\``);
+			 .setDescription(`📥 Input: \n \`\`\`${code}\`\`\` \n 📤 Output: \n  \`\`\`${clean(evaled)}\`\`\``);
 			 
 			 msg.channel.send({embed});
 		} catch (err) {
 			 const embed = new Discord.RichEmbed()
 			 .setTitle(`Evaluation:`)
 			 .setColor("0xff0202")
-			 .setDescription(`📥 Input: \n \`\`\`${evalstuff}\`\`\` \n 📤 Output: \n  \`\`\`${clean(err)}\`\`\``);
+			 .setDescription(`📥 Input: \n \`\`\`${code}\`\`\` \n 📤 Output: \n  \`\`\`${clean(err)}\`\`\``);
 			
 			 msg.channel.send({embed});
 		}
