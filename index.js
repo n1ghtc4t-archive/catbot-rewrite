@@ -251,20 +251,21 @@ cmds["rep"] = {
 cmds["dog"] = {
 	name: "dog",
 	aliases: [],
-	category: "Work In Progress",
+	category: "Fun",
 	help: "dog help",
 	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
-			filename = res.body.toString();
-//            get("https://random.dog/"+filename).then(res => {
-//                msg.channel.send(res.body.file)
-//            });
-			msg.channel.send("https://random.dog/"+filename);
+			var filename = res.body.toString();
+			const embed = new Discord.RichEmbed()
+			.setImage("https://random.dog/"+filename)
+			// msg.channel.send("https://random.dog/"+filename);
+			
+			msg.channel.send({embed});
 		});
 	}
-
 }
+
 /* Old help for reference
 cmds["help"] = {
 	name: "help",
