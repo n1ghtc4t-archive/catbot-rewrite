@@ -256,9 +256,10 @@ cmds["dog"] = {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
 			filename = res.body.toString();
-            get("https://random.dog/"+filename).then(res => {
-                msg.channel.send(res.body.file)
-            });
+//            get("https://random.dog/"+filename).then(res => {
+//                msg.channel.send(res.body.file)
+//            });
+			msg.channel.send("https://random.dog/"+filename);
 		});
 	}
 
