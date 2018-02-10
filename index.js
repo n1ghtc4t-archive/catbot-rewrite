@@ -30,7 +30,7 @@ cmds["eval"] = {
 	name: "eval",
 	aliases: [],
 	category: "Dev",
-	help: "eval help",
+	help: "",
 	func: (msg, parameters) => {
 		if (msg.author.id !== "260246864979296256") return;
 		try {
@@ -64,7 +64,7 @@ cmds["ping"] = {
 	name: "ping",
 	aliases: [],
 	category: "General",
-	help: "ping help",
+	help: "",
 	func: (msg, parameters) => {
 		msg.channel.send("Pinging...").then(sent => {
 			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
@@ -76,7 +76,7 @@ cmds["cat"] = {
 	name: "cat",
 	aliases: [],
 	category: "Fun",
-	help: "cat help",
+	help: "",
 	func: (msg, parameters) => {
 			const {get} = require("snekfetch")
 			get("https://random.cat/meow").then(res => {
@@ -95,7 +95,7 @@ cmds["userinfo"] = {
 	name: "userinfo",
 	aliases: [],
 	category: "Util",
-	help: "Util help",
+	help: "",
 	func: (msg, parameters) => {
 		try {
 			// return msg.channel.send("Sorry, you cannot use this command");	
@@ -148,7 +148,7 @@ cmds["say"] = {
 	name: "say",
 	aliases: [],
 	category: "Dev",
-	help: "say help",
+	help: "",
 	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
 		if (msg.author.id !== "260246864979296256") {
@@ -167,7 +167,7 @@ cmds["serverinfo"] = {
 	name: "serverinfo",
 	aliases: [],
 	category: "Util",
-	help: "serverinfo help",
+	help: "",
 	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
@@ -191,7 +191,7 @@ cmds["catify"] = {
 	name: "catify",
 	aliases: [],
 	category: "Fun",
-	help: "catify help",
+	help: "",
 	func: (msg, parameters) => {
 		let args = msg.content.split(" ").slice(1);
 		if (!args) {
@@ -206,7 +206,7 @@ cmds["invite"] = {
 	name: "invite",
 	aliases: [],
 	category: "General",
-	help: "invite help",
+	help: "",
 	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
@@ -217,7 +217,7 @@ cmds["sorry"] = {
 	name: "sorry",
 	aliases: [],
 	category: "Hidden",
-	help: "sorry help",
+	help: "",
 	func: (msg, parameters) => {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
@@ -228,7 +228,7 @@ cmds["rep"] = {
 	name: "rep",
 	aliases: [],
 	category: "Fun",
-	help: "rep help",
+	help: "",
 	func: (msg, parameters) => {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!");
@@ -257,7 +257,7 @@ cmds["dog"] = {
 	name: "dog",
 	aliases: [],
 	category: "Fun",
-	help: "dog help",
+	help: "",
 	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
@@ -271,54 +271,31 @@ cmds["dog"] = {
 	}
 }
 
-/* Old help for reference
-cmds["help"] = {
-	name: "help",
-	aliases: [],
-	category: "Hidden",
-	help: "help help",
-	func: (msg, parameters) => {
-		const embed = new Discord.RichEmbed()
-		.setTitle(`Catbot Help`)
-		.setColor(0xc6c6c6)
-		.addField(`General`, `\`ping\`, \`invite\``)
-		.addField(`Fun`, `\`catify\`, \`cat\`, \`rep\``)
-		.addField(`Util`, `\`serverinfo\`, \`userinfo\``)
-		.addField(`Mod`, `Soon`)
-		.addField(`Dev`, `\`eval\`, \`say\``)
-		.addField(`Work In Progress`, `\`dog\``)
-		
-		msg.author.send({embed});
-	}
-}
-*/
 
-//TBD: Detailed help for individual commands
 cmds["help"] = {
 	name: "help",
 	aliases: [],
 	category: "Hidden",
-	help: "help help",
-	func: (msg, parameters) => {
-		const embed = new Discord.RichEmbed()
-		.setTitle(`Catbot Help`)
-		.setColor(0xc6c6c6);
-		for (cat in categories) {
-			if (cat == "Hidden") continue;
-			catStr = "";
-			catStr = "`" + categories[cat].join("`, `") + "`"
-/*			
-			cmdNum = categories[cat].length;
-			for (var i = 0; i < cmdNum; i++){
-				catStr += "`" + categories[cat][i] + "`";
-				if (i < cmdNum - 1) catStr += ", ";
+	help: `\`\`\`Usage: ${PREFIX}help [command name]\n\nRetrieves help on the specified command, or sends you a list of commands.\`\`\``,
+	func: (msg, params) => {
+		if (params.length == 1){
+			const embed = new Discord.RichEmbed()
+			.setTitle(`Catbot Help`)
+			.setColor(0xc6c6c6);
+			for (cat in categories) {
+				if (cat == "Hidden") continue;
+				catStr = "";
+				catStr = "`" + categories[cat].join("`, `") + "`"
+				embed.addField(cat, catStr);
 			}
-*/
-			embed.addField(cat, catStr);
+			msg.author.send({embed});
+			msg.channel.send("Sending help, check your DMs!");
+		} else if (params[1] in cmds) {
+			let default_help = "This command doesn't have a help written yet!";
+			msg.channel.send(cmds[params[1]]["help"] ? cmds[params[1]]["help"] : default_help); 
+		} else {
+			msg.channel.send(`I couldn't find this command. Type \`${PREFIX}help\` to get the command listing.`);
 		}
-		
-		msg.author.send({embed});
-		msg.channel.send("Sending help, check your DMs!");
 	}
 }
 
@@ -332,8 +309,7 @@ let categories = {
 	"Fun" : [],
 	"Util" : [],
 	"Mod" : ["Soon"],
-	"Dev" : [],
-	"Work In Progress" : []
+	"Dev" : []
 }
 
 
