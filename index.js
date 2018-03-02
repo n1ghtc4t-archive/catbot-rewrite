@@ -322,7 +322,7 @@ for (cmd in cmds) {
 //Start the client and get going!
 client.on('ready', () => {
 	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-	client.user.setGame(PREFIX+'help for help!', 'https://www.twitch.tv/goddycodes');
+	client.user.setActivity(PREFIX+'help for help!', 'https://www.twitch.tv/goddycodes');
 });
 
 
