@@ -322,7 +322,7 @@ for (cmd in cmds) {
 //Start the client and get going!
 client.on('ready', () => {
 	console.log(`I'm ready! (Logged in as: ${client.user.tag})`);
-	client.user.setActivity(PREFIX+'help for help!', {type: 'STREAMING'});
+	client.user.setActivity(PREFIX+'help for help!', {type: 'STREAMING', url: 'https://www.twitch.tv/goddycodes'});
 	// https://www.twitch.tv/goddycodes
 });
 
