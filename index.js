@@ -206,7 +206,7 @@ cmds["invite"] = {
 	name: "invite",
 	aliases: [],
 	category: "General",
-	help: "Returns Catbot's invite",
+	help: "Returns Catbot's invite.",
 	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
