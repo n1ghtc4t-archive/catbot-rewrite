@@ -31,7 +31,7 @@ cmds["eval"] = {
 	name: "eval",
 	aliases: [],
 	category: "Dev",
-	help: "Bot owner only - evaluates JavaScript code.",
+	help: ``\`\`Usage: ${PREFIX}eval [code]\n\nDeveloper Only - evaluates JavaScript code.\`\`\``,
 	func: (msg, parameters) => {
 		if (!authorizedUsers.includes(msg.author.id)) return;
 		try {
@@ -65,7 +65,7 @@ cmds["ping"] = {
 	name: "ping",
 	aliases: [],
 	category: "General",
-	help: "Pings Catbot and returns the response time.",
+	help: `\`\`\`Usage: ${PREFIX}ping\n\nPings Catbot and returns the response time.\`\`\``,
 	func: (msg, parameters) => {
 		msg.channel.send("Pinging...").then(sent => {
 			sent.edit(`Pong! (Time Taken: ${sent.createdTimestamp - msg.createdTimestamp}ms)`);
@@ -77,7 +77,7 @@ cmds["cat"] = {
 	name: "cat",
 	aliases: [],
 	category: "Fun",
-	help: "Returns a random cat image from random.cat!",
+	help: `\`\`\`Usage: ${PREFIX}cat\n\nReturns a random cat image from random.cat!\`\`\``,
 	func: (msg, parameters) => {
 			const {get} = require("snekfetch")
 			get("https://aws.random.cat/meow").then(res => {
@@ -96,7 +96,7 @@ cmds["userinfo"] = {
 	name: "userinfo",
 	aliases: [],
 	category: "Util",
-	help: "Returns userinfo on a user.",
+	help: `\`\`\`Usage: ${PREFIX}userinfo [@mention | no-mention]\n\nReturns userinfo on a user.\`\`\``,
 	func: (msg, parameters) => {
 		try {
 			// return msg.channel.send("Sorry, you cannot use this command");	
@@ -149,7 +149,7 @@ cmds["say"] = {
 	name: "say",
 	aliases: [],
 	category: "Dev",
-	help: "Bot owner only - makes the bot say something.",
+	help: `\`\`\`Usage: ${PREFIX}say [arguments]\n\nDeveloper Only - makes the bot say something.\`\`\``,
 	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
 		if (!authorizedUsers.includes(msg.author.id)) {
@@ -168,7 +168,7 @@ cmds["serverinfo"] = {
 	name: "serverinfo",
 	aliases: [],
 	category: "Util",
-	help: "Returns info on a guild.",
+	help: `\`\`\`Usage: ${PREFIX}serverinfo\n\nReturns info on a guild.\`\`\``,
 	func: (msg, parameters) => {
 		const embed = new Discord.RichEmbed()
 		.setTitle(`Information about ${msg.guild.name}`)
@@ -192,7 +192,7 @@ cmds["catify"] = {
 	name: "catify",
 	aliases: [],
 	category: "Fun",
-	help: "Joins the spaces in your sentence with cat emotes.",
+	help: `\`\`\`Usage: ${PREFIX}catify [arguments]\n\nJoins the spaces in your sentence with cat emotes.\`\`\``,
 	func: (msg, parameters) => {
 		let args = msg.content.split(" ").slice(1);
 		if (!args) {
@@ -207,7 +207,7 @@ cmds["invite"] = {
 	name: "invite",
 	aliases: [],
 	category: "General",
-	help: "Returns Catbot's invite.",
+	help: `\`\`\`Usage: ${PREFIX}invite\n\nReturns Catbot's invite.\`\`\``,
 	func: (msg, parameters) => {
 		msg.reply("You can invite me here!\nhttps://bot.discord.io/catbot");
 	}
@@ -218,7 +218,7 @@ cmds["sorry"] = {
 	name: "sorry",
 	aliases: [],
 	category: "Hidden",
-	help: "Sorry, love.",
+	help: `\`\`\`Usage: ${PREFIX}sorry\n\nSorry, love.\`\`\``,
 	func: (msg, parameters) => {
 		msg.channel.send("https://cdn.discordapp.com/attachments/309625872665542658/406040395462737921/image.png");
 	}
@@ -229,7 +229,7 @@ cmds["rep"] = {
 	name: "rep",
 	aliases: [],
 	category: "Fun",
-	help: "Reps a user. [INDEV]",
+	help: `\`\`\`Usage: ${PREFIX}rep [@mention]\n\nReps a user. [INDEV]\`\`\``,
 	func: (msg, parameters) => {
 		var user = msg.mentions.members.first();
 		if(!user) return msg.reply("Please provide a user mention!");
@@ -258,7 +258,7 @@ cmds["dog"] = {
 	name: "dog",
 	aliases: [],
 	category: "Fun",
-	help: "Returns a random dog image from random.dog!",
+	help: `\`\`\`Usage: ${PREFIX}dog\n\nReturns a random dog image from random.dog!\`\`\``,
 	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
