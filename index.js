@@ -7,6 +7,7 @@ const userData = require(USER_DATA_FILE);
 
 let PREFIX = "c:";
 let DEBUG = true;
+const authorizedUsers = [ "300992784020668416", "260246864979296256", "299175087389802496", "298706728856453121", "222054596820992021", "302749144643141635" ];
 
 //Command definitions! For the lols
 /*
@@ -32,7 +33,7 @@ cmds["eval"] = {
 	category: "Dev",
 	help: "Bot owner only - evaluates JavaScript code.",
 	func: (msg, parameters) => {
-		if (msg.author.id !== "260246864979296256") return;
+		if (!authorizedUsers.includes(msg.author.id)) return;
 		try {
 			const code = msg.content.split(" ").slice(1).join(" ");
 			let evaled = eval(code);
@@ -151,7 +152,7 @@ cmds["say"] = {
 	help: "Bot owner only - makes the bot say something.",
 	func: (msg, parameters) => {
 		let args = msg.content.split(' ').slice(1).join(' ');
-		if (msg.author.id !== "260246864979296256") {
+		if (!authorizedUsers.includes(msg.author.id)) {
 			return msg.reply("no");
 		}
 		if (!args) {
