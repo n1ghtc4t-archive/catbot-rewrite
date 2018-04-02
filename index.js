@@ -29,7 +29,7 @@ let cmds = {};
 //TBD: Use parameters to define args
 cmds["eval"] = {
 	name: "eval",
-	aliases: [],
+	aliases: ['e', 'ev'],
 	category: "Dev",
 	help: `\`\`\`Usage: ${PREFIX}eval [code]\n\nDeveloper Only - evaluates JavaScript code.\`\`\``,
 	func: (msg, parameters) => {
@@ -63,7 +63,7 @@ cmds["eval"] = {
 
 cmds["ping"] = {
 	name: "ping",
-	aliases: [],
+	aliases: ['pang', 'pong', 'peng'],
 	category: "General",
 	help: `\`\`\`Usage: ${PREFIX}ping\n\nPings Catbot and returns the response time.\`\`\``,
 	func: (msg, parameters) => {
@@ -75,7 +75,7 @@ cmds["ping"] = {
 
 cmds["cat"] = {
 	name: "cat",
-	aliases: [],
+	aliases: ['neko', 'catto', 'tac'],
 	category: "Fun",
 	help: `\`\`\`Usage: ${PREFIX}cat\n\nReturns a random cat image from random.cat!\`\`\``,
 	func: (msg, parameters) => {
@@ -94,7 +94,7 @@ cmds["cat"] = {
 //TBD: Roles, Joined guild date, joined discord date
 cmds["userinfo"] = {
 	name: "userinfo",
-	aliases: [],
+	aliases: ['user'],
 	category: "Util",
 	help: `\`\`\`Usage: ${PREFIX}userinfo [@mention | no-mention]\n\nReturns userinfo on a user.\`\`\``,
 	func: (msg, parameters) => {
@@ -147,7 +147,7 @@ cmds["userinfo"] = {
 //TBD: Use parameters to define args
 cmds["say"] = {
 	name: "say",
-	aliases: [],
+	aliases: ['speak', 'expressYourselfWith'],
 	category: "Dev",
 	help: `\`\`\`Usage: ${PREFIX}say [arguments]\n\nDeveloper Only - makes the bot say something.\`\`\``,
 	func: (msg, parameters) => {
@@ -166,7 +166,7 @@ cmds["say"] = {
 
 cmds["serverinfo"] = {
 	name: "serverinfo",
-	aliases: [],
+	aliases: ['server'],
 	category: "Util",
 	help: `\`\`\`Usage: ${PREFIX}serverinfo\n\nReturns info on a guild.\`\`\``,
 	func: (msg, parameters) => {
@@ -205,7 +205,7 @@ cmds["catify"] = {
 
 cmds["invite"] = {
 	name: "invite",
-	aliases: [],
+	aliases: ['join'],
 	category: "General",
 	help: `\`\`\`Usage: ${PREFIX}invite\n\nReturns Catbot's invite.\`\`\``,
 	func: (msg, parameters) => {
@@ -216,7 +216,7 @@ cmds["invite"] = {
 
 cmds["sorry"] = {
 	name: "sorry",
-	aliases: [],
+	aliases: ['sorryLove'],
 	category: "Hidden",
 	help: `\`\`\`Usage: ${PREFIX}sorry\n\nSorry, love.\`\`\``,
 	func: (msg, parameters) => {
@@ -227,7 +227,7 @@ cmds["sorry"] = {
 //TBD: Make "next give reputation" time user friendly.
 cmds["rep"] = {
 	name: "rep",
-	aliases: [],
+	aliases: ['plusOne', 'giveRep'],
 	category: "Fun",
 	help: `\`\`\`Usage: ${PREFIX}rep [@mention]\n\nReps a user. [INDEV]\`\`\``,
 	func: (msg, parameters) => {
@@ -256,7 +256,7 @@ cmds["rep"] = {
 
 cmds["dog"] = {
 	name: "dog",
-	aliases: [],
+	aliases: ['inu', 'doggo'],
 	category: "Fun",
 	help: `\`\`\`Usage: ${PREFIX}dog\n\nReturns a random dog image from random.dog!\`\`\``,
 	func: (msg, parameters) => {
@@ -275,7 +275,7 @@ cmds["dog"] = {
 
 cmds["help"] = {
 	name: "help",
-	aliases: [],
+	aliases: ['halp', 'h'],
 	category: "Hidden",
 	help: `\`\`\`Usage: ${PREFIX}help [command name]\n\nRetrieves help on the specified command, or sends you a list of commands.\`\`\``,
 	func: (msg, params) => {
