@@ -31,7 +31,7 @@ cmds["eval"] = {
 	name: "eval",
 	aliases: [],
 	category: "Dev",
-	help: ``\`\`Usage: ${PREFIX}eval [code]\n\nDeveloper Only - evaluates JavaScript code.\`\`\``,
+	help: `\`\`\`Usage: ${PREFIX}eval [code]\n\nDeveloper Only - evaluates JavaScript code.\`\`\``,
 	func: (msg, parameters) => {
 		if (!authorizedUsers.includes(msg.author.id)) return;
 		try {
