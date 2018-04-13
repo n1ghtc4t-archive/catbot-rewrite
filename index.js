@@ -291,9 +291,9 @@ cmds["help"] = {
 			}
 			msg.author.send({embed});
 			msg.channel.send("Sending help, check your DMs!");
-		} else if (params[1] in cmds) {
+		} else if (params[1] in fullcmds) {
 			let default_help = "This command doesn't have a help written yet!";
-			msg.channel.send(cmds[params[1]]["help"] ? cmds[params[1]]["help"] : default_help); 
+			msg.channel.send(fullcmds[params[1]]["help"] ? fullcmds[params[1]]["help"] : default_help); 
 		} else {
 			msg.channel.send(`I couldn't find this command. Type \`${PREFIX}help\` to get the command listing.`);
 		}
