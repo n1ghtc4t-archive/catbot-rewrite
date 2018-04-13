@@ -313,12 +313,22 @@ let categories = {
 	"Dev" : []
 }
 
+let fullcmds = {};
 
 for (cmd in cmds) {
+    // Populate categories
 	cat = cmds[cmd]["category"];
 	if ( !(cat in categories) ) categories[cat] = [];
 	categories[cat].push(cmd);
+
+    // Populate fullcmds with original command and alias
+    fullcmds[cmd] = cmds[cmd];
+    for (alias in cmds[cmd].aliases) {
+        fullcmds[cmds[cmd].aliases[alias]] = cmds[cmd];
+    }
 }
+
+
 
 //Start the client and get going!
 client.on('ready', () => {
@@ -333,10 +343,10 @@ client.on('message', msg => {
 	if ( msg.content.startsWith(PREFIX) ){
 		message = msg.content;
 		params = message.slice(PREFIX.length).split(' ');
-		if (params[0] in cmds){
+		if (params[0] in fullcmds){
 			if ( DEBUG ) console.log("Running command \""+params[0]+"\" from message:\n"+message);
 			try{
-				cmds[params[0]].func(msg, params);
+				fullcmds[params[0]].func(msg, params);
 			} catch (err) {
 				msg.channel.send("Something went wrong! This event has been logged.");
 				console.error("Something went wrong. Was running command \""+params[0]+"\" from message \n"+message+"\nGot the stack trace:\n"+err.stack)
