@@ -323,7 +323,7 @@ for (cmd in cmds) {
 
     // Populate fullcmds with original command and alias
     fullcmds[cmd] = cmds[cmd];
-    for (alias in cmds[cmd][aliases]) {
+    for (alias in cmds[cmd].aliases) {
         fullcmds[alias] = cmds[cmd];
     }
 }
