@@ -262,12 +262,16 @@ cmds["dog"] = {
 	func: (msg, parameters) => {
 		const {get} = require("snekfetch")
 		get("https://random.dog/woof").then(res => {
+			msg.channel.send(`https://random.dog/${res.body.toString()}`);
+			
+			/* 
 			var filename = res.body.toString();
 			const embed = new Discord.RichEmbed()
 			.setImage("https://random.dog/"+filename)
-			// msg.channel.send("https://random.dog/"+filename);
+			-- msg.channel.send("https://random.dog/"+filename);
 			
-			msg.channel.send({embed});
+			msg.channel.send({embed}); 
+			*/
 		});
 	}
 }
