@@ -126,7 +126,7 @@ cmds["userinfo"] = {
 				.addField(`Full username`, `${userMention.tag}`)
 				.addField(`Nickname`, `${userMention.nickname || "None"}`)
 				.addField(`Status`, `${userMention.presence.status}`)
-				.addField(`Roles`, `:ok:`)
+				.addField(`Roles`, `${userMention.roles.filter(r => r.id !== msg.guild.id).map(roles => `\`${roles.name}\``).join(", ") || "No Roles"}`)
 				.addField(`Joined guild`, `Soon:tm:`)
 				.addField(`Joined Discord`, `Soon:tm:`)
 				.addField(`Is a bot`, `${userMention.bot}`)
